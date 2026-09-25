@@ -5,6 +5,8 @@ Learn: semantic search, LLM prompting, web UI
 """
 
 import chromadb
+import json
+from datetime import datetime
 from pathlib import Path
 from sentence_transformers import SentenceTransformer
 
@@ -111,6 +113,38 @@ def init_rag_components():
 
 	return collection, model
 
+def log_interaction(question: str, retrieved_chunks: list, answer: str, log_file: Path = Path('./logs/interactions.jsonl')):
+	"""
+	Log each RAG interaction to a JSONL file.
+	
+	Args:
+	   question: User question
+	   retrieved_chunks: List of retrieved chunks
+	   answer: Generated answer
+	   log_file: Path to JSONL log file
+	"""
+
+	log_file.parent.mkdir(exist_ok=True)
+
+	log_entry = {
+		'timestamp': datetime.now().isoformat(),
+		'question': question,
+		'retrieved_sources': [
+			{
+				'source': chunk['source'],
+				'section': chunk['section'],
+				'similarity': round(chunk['similarity'], 3)
+			}
+			for chunk in retrieved_chunks
+		],
+		'answer' : answer
+	}
+
+	with open(log_file, 'a') as f:
+		f.write(json.dumps(log_entry) + '\n')
+
+	print(f"Logged interaction to {log_file}")
+
 if __name__ == '__main__':
 	import os
 	client = chromadb.PersistentClient(path='./chromadb')
@@ -130,3 +164,5 @@ if __name__ == '__main__':
 	print("ANSWER:\n")
 	print("=" * 80 + "\n")
 	print(answer)
+
+	log_interaction(query, chunks, answer)

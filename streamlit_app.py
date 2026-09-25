@@ -4,7 +4,8 @@ RAG Streamlit interface for FastAPI documentation Q&A.
 """
 
 import streamlit as st
-from rag_pipeline import semantic_search, generate_answer, init_rag_components
+from rag_pipeline import semantic_search, generate_answer, init_rag_components, log_interaction
+from pathlib import Path
 
 st.set_page_config(
 	page_title="FastAPI RAG Assistant",
@@ -34,6 +35,8 @@ if question:
 		retrieved_chunks = semantic_search(collection, model, question, top_k=top_k)
 		
 		answer = generate_answer(question, retrieved_chunks)
+
+		log_interaction(question, retrieved_chunks, answer)
 
 		st.markdown("### Answer")
 		st.markdown(answer)
