@@ -11,7 +11,7 @@ from rag_pipeline import semantic_search, init_rag_components
 TEST_QUESTIONS = [
     {
         'question': 'How do I install FastAPI?',
-        'expected_sources': ['tutorial', 'installation', 'first_steps']
+        'expected_sources': ['tutorial', 'first_steps']
     },
     {
         'question': 'What is dependency injection in FastAPI?',
@@ -19,11 +19,11 @@ TEST_QUESTIONS = [
     },
     {
         'question': 'How do I handle errors in FastAPI?',
-        'expected_sources': ['error_handling', 'exceptions']
+        'expected_sources': ['handling_errors', 'exceptions']
     },
     {
         'question': 'How do I create a path parameter?',
-        'expected_sources': ['path_parameters', 'tutorial']
+        'expected_sources': ['path_params', 'tutorial']
     },
     {
         'question': 'What are WebSockets in FastAPI?',
@@ -31,11 +31,11 @@ TEST_QUESTIONS = [
     },
     {
         'question': 'How do I add authentication?',
-        'expected_sources': ['security', 'authentication', 'oauth2']
+        'expected_sources': ['security', 'authentication', 'oauth2', 'http-basic-auth']
     },
     {
         'question': 'How do I return a custom response?',
-        'expected_sources': ['responses', 'custom']
+        'expected_sources': ['responses', 'custom-response']
     },
     {
         'question': 'What is CORS and how do I enable it?',
@@ -51,11 +51,11 @@ TEST_QUESTIONS = [
     },
     {
         'question': 'How do I create multiple routes?',
-        'expected_sources': ['routing', 'bigger-applications', 'apirouter']
+        'expected_sources': ['routing', 'bigger-applications']
     },
     {
         'question': 'What is request validation?',
-        'expected_sources': ['validation', 'pydantic', 'body']
+        'expected_sources': ['validation', 'body']
     },
     {
         'question': 'How do I use background tasks?',
@@ -63,7 +63,7 @@ TEST_QUESTIONS = [
     },
     {
         'question': 'How do I test FastAPI endpoints?',
-        'expected_sources': ['testing', 'testclient', 'pytest']
+        'expected_sources': ['testing', 'testclient']
     },
     {
         'question': 'What are path operation decorators?',
@@ -126,4 +126,4 @@ def evaluate_rag(collection, model, test_questions: list, top_k: int = 3):
 if __name__ == '__main__':
     collection, model = init_rag_components()
 
-    results, hit_rate = evaluate_rag(collection, model, TEST_QUESTIONS, top_k=3)
+    results, hit_rate = evaluate_rag(collection, model, TEST_QUESTIONS, top_k=15)

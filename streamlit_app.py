@@ -18,7 +18,7 @@ st.markdown("Ask questions about FastAPI and get answers from the official docum
 
 with st.sidebar:
 	st.header("⚙️ Settings")
-	top_k = st.slider("Number of chunks to retrieve", 1, 10, 3)
+	top_k = st.slider("Number of chunks to retrieve", 1, 20, 15)
 
 @st.cache_resource
 def load_components():
