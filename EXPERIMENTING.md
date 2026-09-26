@@ -15,7 +15,7 @@ Questions answered partially: 8 / 15
 Questions answered incorrectly: 5 / 15
 ```
 
-**Key insight:** Baseline established. Low hit rate suggests ranking quality is the bottleneck, not data availabiltiy.
+**Key insight:** Baseline established. Low hit rate suggests ranking quality is the bottleneck, not data availability.
 
 ---
 
@@ -47,14 +47,14 @@ Questions answered incorrectly: 7 / 15
 **Problem discovered:** Test questions used incorect keywords
 - Expected: 'installation', 'error_handling', 'path_parameters' (underscores)
 - Actual files: 'first-steps', 'handling-errors', 'path-params' (hyphens)
-- Substring matching was failling due to mismatch
+- Substring matching was failing due to mismatch
 
 **Results with fixed keywords:**
 ```
-Overall SourceHitRate@3: 40.6% which bacomes the new baseline.
+Overall SourceHitRate@3: 40.6% which becomes the new baseline.
 ```
 
-**Leson:** Evaluation metrics are only as good as the test data. Proper keyword alignment is crutial for meaningful metrics.
+**Lesson:** Evaluation metrics are only as good as the test data. Proper keyword alignment is crucial for meaningful metrics.
 
 ## Experiment 3: Increase top-k parameter (3 -> 5, 10, 15, 20, etc.)
 
