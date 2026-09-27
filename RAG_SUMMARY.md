@@ -5,7 +5,7 @@
 ### What was built
 - Semantic search function retrieving top-3 relevant chunks
 - Rag prompt with proper source citations [Source N]
-- LLM integration using Ollama
+- LLM integration using Gemini
 - Streamlit web interface with expandable context
 
 ### Architecture
@@ -17,7 +17,7 @@ User Question
 ↓
 [Build RAG prompt with citations]
 ↓
-[Call Ollama (llama3.2:3b)]
+[Call Gemini (gemini-3.8-flash)]
 ↓
 [Generate answer with [Source N] citations]
 ↓
@@ -31,7 +31,7 @@ User Question
 - Metadata preserved (source, section)
 
 **Answer Generation:**
-- Uses Ollama (local, no API costs)
+- Uses Gemini (no API costs)
 - Generates real answers based on context
 - Properly cites sources [Source 1], [Source 2], etc.
 
@@ -45,7 +45,7 @@ User Question
 ### Key Features
 
 **No API Costs**
-- Uses Ollama for free, local LLM
+- Uses Gemini for free
 - Runs entirely on your machine
 
 **Proper Citations**
@@ -65,7 +65,7 @@ User Question
 
 - Query embedding: <100ms
 - ChromaDB search: <100ms
-- Ollama generation: 5-30 seconds
+- Gemini generation: 5-30 seconds
 - Total end-to-end: 10-40 seconds
 
 ### Files
@@ -78,13 +78,9 @@ User Question
 ### How to run
 
 ````bash
-# Make sure Ollama is running
-ollama serve
-
-# In another terminal
 streamlit run streamlit_app.py
 ```
 
 Opens at: `http://localhost:8501`
 
-Date: 24/09/2026
+Last Update: 24/09/2026

@@ -34,7 +34,8 @@ if question:
 	with st.spinner("Searching and generating answer..."):
 		retrieved_chunks = semantic_search(collection, model, question, top_k=top_k)
 		
-		answer = generate_answer(question, retrieved_chunks)
+		api_key = st.secrets.get("GenerativeAI_API_Key")
+		answer = generate_answer(question, retrieved_chunks, api_key)
 
 		log_interaction(question, retrieved_chunks, answer)
 

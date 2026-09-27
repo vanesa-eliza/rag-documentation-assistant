@@ -4,6 +4,7 @@ RAG answer generation pipeline.
 Learn: semantic search, LLM prompting, web UI
 """
 
+import os
 import chromadb
 import json
 from datetime import datetime
@@ -64,7 +65,7 @@ def build_rag_prompt(query: str, retrieved_chunks: list) -> str:
 		context += f"{chunk['text']}\n"
 		context += "-" * 70 + "\n"
 
-	prompt = f"""You are a helful assistant answering questions about FastAPI documentation.
+	prompt = f"""You are a helpful assistant answering questions about FastAPI documentation.
 	Use ONLY the provided context to answer the question. If the answer is not in the context, say "I don't have enough information."
 	IMPORTANT: Cite sources using [Source N] format wherever you use information from the context
 
@@ -79,7 +80,7 @@ def build_rag_prompt(query: str, retrieved_chunks: list) -> str:
 	
 	return prompt
 
-def generate_answer(query: str, retrieved_chunks: list) -> str:
+def generate_answer(query: str, retrieved_chunks: list, api_key: str) -> str:
 	"""
 	Generate answer using OpenAI API.
 	
@@ -90,17 +91,17 @@ def generate_answer(query: str, retrieved_chunks: list) -> str:
 	Returns:
 	   Generated answer with citations
 	"""
+	import google.generativeai as genai
+
+	genai.configure(api_key=api_key)
+	
+	model = genai.GenerativeModel('gemini-3.8-flash')
 
 	prompt = build_rag_prompt(query, retrieved_chunks)
 
-	import ollama
+	response = model.generate_content(prompt)
 
-	response = ollama.generate(
-		model="llama3.2:3b",
-		prompt=prompt,
-		stream=False,	)
-
-	return response['response']
+	return response.text
 
 def init_rag_components():
 	"""
@@ -158,7 +159,7 @@ if __name__ == '__main__':
 	print(f"Query: {query}\n")
 	print(f"Retrieved {len(chunks)} chunks:\n")
 
-	answer = generate_answer(query, chunks)
+	answer = generate_answer(query, chunks, api_key=os.environ.get("GenerativeAI_API_Key"))
 
 	print("\n" + "=" * 80 + "\n")
 	print("ANSWER:\n")
